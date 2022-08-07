@@ -9,6 +9,8 @@ export const ExpenseForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
 
+  // const [toggle, setToggle] = useState("off");
+
   //Using single state (Recommended)
   // const [userInput, setUserInput] = useState({
   //   enteredTitle: "",
@@ -41,7 +43,7 @@ export const ExpenseForm = (props) => {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -50,6 +52,25 @@ export const ExpenseForm = (props) => {
     setEnteredAmount("");
     setEnteredDate("");
   };
+
+  // const addNewHandler = (event) => {
+  //   event.preventDefault();
+
+  //   setToggle("on");
+  // };
+
+  // const cancelHandler = (event) => {
+  //   event.preventDefault();
+
+  //   setToggle("off");
+  // };
+  // if (toggle === "off") {
+  //   return (
+  //     <form onSubmit={submitHandler}>
+  //       <button onClick={addNewHandler}>Add New Expense</button>
+  //     </form>
+  //   );
+  // }
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -81,6 +102,13 @@ export const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button
+          // onClick={cancelHandler}
+          type="button"
+          onClick={props.onCancel}
+        >
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
