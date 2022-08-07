@@ -10,26 +10,31 @@ export const Expenses = (props) => {
   const filterHandler = (filterValue) => {
     setFilter(filterValue);
   };
+  const filterExpenses = props.items.filter(
+    (element) => element.date.getFullYear().toString() === filter
+  );
+  let expensesContent = <p>No expenses found.</p>;
+
+  if (filterExpenses.length > 0) {
+    expensesContent = filterExpenses.map((element, i) => {
+      return (
+        <ExpenseItem
+          key={element.id}
+          title={element.title}
+          amount={element.amount}
+          date={element.date}
+        ></ExpenseItem>
+      );
+    });
+  }
+
   return (
     <div>
       <ExpensesFilter
         selected={filter}
         onFilter={filterHandler}
       ></ExpensesFilter>
-      <Card className="expenses">
-        {props.items
-          .filter((element) => element.date.getFullYear().toString() === filter)
-          .map((element, i) => {
-            return (
-              <ExpenseItem
-                key={element.id}
-                title={element.title}
-                amount={element.amount}
-                date={element.date}
-              ></ExpenseItem>
-            );
-          })}
-      </Card>
+      <Card className="expenses">{expensesContent}</Card>
     </div>
   );
 };
