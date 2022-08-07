@@ -17,19 +17,18 @@ export const Expenses = (props) => {
         onFilter={filterHandler}
       ></ExpensesFilter>
       <Card className="expenses">
-        {props.items.map((element, i) => {
-          if (element.date.getFullYear() === filter.toString())
+        {props.items
+          .filter((element) => element.date.getFullYear().toString() === filter)
+          .map((element, i) => {
             return (
               <ExpenseItem
+                key={element.id}
                 title={element.title}
                 amount={element.amount}
                 date={element.date}
               ></ExpenseItem>
             );
-          else {
-            return;
-          }
-        })}
+          })}
       </Card>
     </div>
   );
